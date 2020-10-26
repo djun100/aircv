@@ -85,8 +85,9 @@ def find_show(src, dst):
     img1 = cv2.imread(dst, 0)
     img2 = cv2.imread(src, 0)
 
-    # the larger edgeThreshold is, the more sift keypoints we find 
-    sift = cv2.SIFT(edgeThreshold=100)
+    # the larger edgeThreshold is, the more sift keypoints we find
+    # sift = cv2.SIFT(edgeThreshold=100)  # 旧版本
+    sift = cv2.xfeatures2d.SIFT_create(edgeThreshold=100)
 
     # find the keypoints and descriptors with SIFT
     kp1, des1 = sift.detectAndCompute(img1, None)
@@ -101,7 +102,7 @@ def find_show(src, dst):
 
     matches = flann.knnMatch(des1, des2, k=2)
 
-    print len(matches), "sift feature points found"
+    print((len(matches), "sift feature points found"))
 
     good = []
     for m, n in matches:
@@ -109,7 +110,7 @@ def find_show(src, dst):
         # filter those pts similar to the next good ones
         if m.distance < 0.9 * n.distance:
             good.append(m)
-    print len(good), "good feature points"
+    print((len(good), "good feature points"))
 
     # require count >= 4 in function cvFindHomography
     if len(good) >= 4:
@@ -140,13 +141,13 @@ def find_show(src, dst):
             rectangle=pypts,
             confidence=min(1.0 * matchesMask.count(1) / 10, 1.0)
         )
-        print result
+        print(result)
 
         selected = []
         for k, v in enumerate(good):
             if matchesMask[k]:
                 selected.append(v)
-        print len(selected), "selected by homography"
+        print((len(selected), "selected by homography"))
 
     else:
         raise Exception("not enough matches found %s/%s" % (len(good), 4))
@@ -160,8 +161,8 @@ def find_show(src, dst):
 
 
 if __name__ == '__main__':
-    find_show("testdata/g18/screen_big2.png", "testdata/g18/task2.png")
-    # find_show("testdata/2s.png", "testdata/2t.png")
+    # find_show("testdata/g18/screen_big.png", "testdata/g18/task.png")
+    find_show("testdata/2s.png", "testdata/2t.png")
     # find_show("testdata/yl/bg_2.5.png", "testdata/yl/q_small.png")
     # find_show("testdata/yl/bg_2.png", "testdata/yl/q_big.png")
     # find_show("testdata/xyq/screen.png", "testdata/xyq/bk.png")

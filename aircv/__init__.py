@@ -50,26 +50,28 @@ __project_url__ = "https://github.com/netease/aircv"
 
 DEBUG = False
 
-#def crop(img, (x0, y0), end=(0, 0), rect=(0, 0)):
-#    ''' Crop image '''
-#    (h, w) = img.shape[:2]
-#    (x1, y1) = (w, h)
-#    if end != (0, 0):
-#        (x1, y1) = end
-#    if rect != (0, 0):
-#        (x1, y1) = (x0+rect[0], y0+rect[1])
-#    (x1, y1) = min(max(x0, x1), w), min(max(y0, y1), h)
-#    return img[y0:y1, x0:x1]
+def crop(img, xxx_todo_changeme, end=(0, 0), rect=(0, 0)):
+   ''' Crop image '''
+   (x0, y0) = xxx_todo_changeme
+   (h, w) = img.shape[:2]
+   (x1, y1) = (w, h)
+   if end != (0, 0):
+       (x1, y1) = end
+   if rect != (0, 0):
+       (x1, y1) = (x0+rect[0], y0+rect[1])
+   (x1, y1) = min(max(x0, x1), w), min(max(y0, y1), h)
+   return img[y0:y1, x0:x1]
 
 
-#def mark_point(img, (x, y)):
-#    ''' 调试用的: 标记一个点 '''
-#    # cv2.rectangle(img, (x, y), (x+10, y+10), 255, 1, lineType=cv2.CV_AA)
-#    radius = 20
-#    cv2.circle(img, (x, y), radius, 255, thickness=2)
-#    cv2.line(img, (x-radius, y), (x+radius, y), 100) # x line
-#    cv2.line(img, (x, y-radius), (x, y+radius), 100) # y line
-#    return img
+def mark_point(img, xxx_todo_changeme1):
+   ''' 调试用的: 标记一个点 '''
+   (temX, tempY) = xxx_todo_changeme1
+   (x, y) = (int(temX), int(tempY))
+   radius = 20
+   cv2.circle(img, (x, y), radius, 255, thickness=2)
+   cv2.line(img, (x-radius, y), (x+radius, y), 100) # x line
+   cv2.line(img, (x, y-radius), (x, y+radius), 100) # y line
+   return img
 
 def show(img):
     ''' 显示一个图片 '''
@@ -143,7 +145,7 @@ def find_all_template(im_source, im_search, threshold=0.5, maxcnt=0, rgb=False, 
         else:
             top_left = max_loc
         if DEBUG: 
-            print('templmatch_value(thresh:%.1f) = %.3f' %(threshold, max_val)) # not show debug
+            print(('templmatch_value(thresh:%.1f) = %.3f' %(threshold, max_val))) # not show debug
         if max_val < threshold:
             break
         # calculator middle point
@@ -308,39 +310,41 @@ def brightness(im):
 
 
 def main():
-    print(cv2.IMREAD_COLOR)
-    print(cv2.IMREAD_GRAYSCALE)
-    print(cv2.IMREAD_UNCHANGED)
-    imsrc = imread('testdata/1s.png')
-    imsch = imread('testdata/1t.png')
-    print(brightness(imsrc))
-    print(brightness(imsch))
+    # print((cv2.IMREAD_COLOR))
+    # print((cv2.IMREAD_GRAYSCALE))
+    # print((cv2.IMREAD_UNCHANGED))
+    # imsrc = imread('../tests/testdata/1s.png')
+    # imsch = imread('../tests/testdata/1t.png')
+    # print((brightness(imsrc)))
+    # print((brightness(imsch)))
+    #
+    # pt = find(imsrc, imsch)
+    # mark_point(imsrc, pt)
+    # show(imsrc)
 
-    pt = find(imsrc, imsch)
-    #mark_point(imsrc, pt)
-    #show(imsrc)
-    imsrc = imread('testdata/2s.png')
-    imsch = imread('testdata/2t.png')
-    result = find_all_template(imsrc, imsch)
-    print(result)
-    pts = []
-    for match in result:
-        pt = match["result"]
-        #mark_point(imsrc, pt)
-        pts.append(pt)
+
+    # imsrc = imread('../tests/testdata/2s.png')
+    # imsch = imread('../tests/testdata/2t.png')
+    # result = find_all_template(imsrc, imsch)
+    # print(result)
+    # pts = []
+    # for match in result:
+    #     pt = match["result"]
+    #     mark_point(imsrc, pt)
+    #     pts.append(pt)
     # pts.sort()
-    #show(imsrc)
-    # print pts
-    # print sorted(pts, key=lambda p: p[0])
+    # show(imsrc)
+    # print(pts)
+    # print(sorted(pts, key=lambda p: p[0]))
 
     imsrc = imread('yl/bg_half.png')
     imsch = imread('yl/q_small.png')
-    print(result)
-    print('SIFT count=', sift_count(imsch))
-    print(find_sift(imsrc, imsch))
-    print(find_all_sift(imsrc, imsch))
-    print(find_all_template(imsrc, imsch))
-    print(find_all(imsrc, imsch))
+    # print(result)
+    print(('SIFT count=', sift_count(imsch)))
+    print((find_sift(imsrc, imsch)))
+    print((find_all_sift(imsrc, imsch)))
+    print((find_all_template(imsrc, imsch)))
+    print((find_all(imsrc, imsch)))
 
 
 if __name__ == '__main__':

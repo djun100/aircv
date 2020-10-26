@@ -16,14 +16,14 @@ sift = cv2.ORB_create(edgeThreshold=20)
 
 kp1, des1 = sift.detectAndCompute(img1, None)
 kp2, des2 = sift.detectAndCompute(img2, None)
-print len(kp1), len(kp2)
+print((len(kp1), len(kp2)))
 
 
 bf = cv2.BFMatcher(cv2.NORM_HAMMING)#, crossCheck=True)
 matches = bf.match(des1, des2)
 #matches = bf.knnMatch(des1, des2, k=2)
 
-print len(matches)
+print((len(matches)))
 
 """
 good = []
