@@ -337,14 +337,18 @@ def main():
     # print(pts)
     # print(sorted(pts, key=lambda p: p[0]))
 
-    imsrc = imread('yl/bg_half.png')
-    imsch = imread('yl/q_small.png')
+    imsrc = imread('../tests/testdata/yl/bg_half.png')
+    imsch = imread('../tests/testdata/yl/q_small.png')
     # print(result)
-    print(('SIFT count=', sift_count(imsch)))
-    print((find_sift(imsrc, imsch)))
-    print((find_all_sift(imsrc, imsch)))
-    print((find_all_template(imsrc, imsch)))
-    print((find_all(imsrc, imsch)))
+    # print(('SIFT count=', sift_count(imsch)))
+    pt = (find_sift(imsrc, imsch))
+    print(pt)
+    # print((find_all_sift(imsrc, imsch)))
+    # print((find_all_template(imsrc, imsch)))
+    # print((find_all(imsrc, imsch)))
+
+    mark_point(imsrc, pt)
+    show(imsrc)
 
 
 if __name__ == '__main__':
