@@ -75,6 +75,9 @@ def mark_point(img, xxx_todo_changeme1):
 
 def show(img):
     ''' 显示一个图片 '''
+    cv2.namedWindow("image", 0);
+    cv2.resizeWindow("image", 640, 480);
+
     cv2.imshow('image', img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -337,17 +340,18 @@ def main():
     # print(pts)
     # print(sorted(pts, key=lambda p: p[0]))
 
-    imsrc = imread('../tests/testdata/yl/bg_half.png')
+    # imsrc = imread('../tests/testdata/yl/bg_half.png')
+    imsrc = imread('../tests/testdata/yl/bg.png')
     imsch = imread('../tests/testdata/yl/q_small.png')
-    # print(result)
-    # print(('SIFT count=', sift_count(imsch)))
-    pt = (find_sift(imsrc, imsch))
-    print(pt)
-    # print((find_all_sift(imsrc, imsch)))
-    # print((find_all_template(imsrc, imsch)))
-    # print((find_all(imsrc, imsch)))
 
-    mark_point(imsrc, pt)
+    # print(('SIFT count=', sift_count(imsch)))
+    dict = find_sift(imsrc, imsch)
+    # dict = find_all_sift(imsrc, imsch)[0]
+    # dict = find_all_template(imsrc, imsch)
+    # dict = find_all(imsrc, imsch)
+    print(dict)
+
+    mark_point(imsrc, dict['result'])
     show(imsrc)
 
 
